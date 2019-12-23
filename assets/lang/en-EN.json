@@ -1,0 +1,33 @@
+{
+  "oi": {
+    "summery": "OI (Osteogenesis imperfecta) aka brittle bone disease is a genetic defect that manly effects the bone structure causing bones to fracture more easily.",
+    "types": "There are currently 19 recognized types of OI named I (1) to XIX (19). Several types are distinguished by their signs and symptoms, although their characteristic features overlap. Increasingly, genetic causes are used to define rarer forms of OI.",
+    "symptom": {
+      "summery": "The severity of symptoms vary from type to type. Besides a higher risk of fracture, the symptoms can include:",
+      "symptoms": [
+        "Bone deformation",
+        "Short stature",
+        "Deformed bones",
+        "Blue/Grey Sclera",
+        "Poor muscle tone"
+      ]
+    },
+    "treatment": {
+      "summary": "There are three ways to treat OI.",
+      "treatments": [
+        {
+          "title": "Bisphosphonates",
+          "desc": ""
+        },
+        {
+          "title": "Surgery",
+          "desc": ""
+        },
+        {
+          "title": "Physiotherapy",
+          "desc": ""
+        }
+      ]
+    }
+  }
+}
