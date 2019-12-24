@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="/assets/assets/img/favicon/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/assets/assets/img/favicon/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/assets/img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/assets/assets/img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/assets/img/favicon/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/assets/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/assets/assets/img/favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/assets/img/favicon/favicon-16x16.png">
@@ -21,7 +21,7 @@
     <meta name="msapplication-TileImage" content="/assets/assets/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body id="app-container">
+<body id="app-container" style="background: #303030">
 <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-performance.js"></script>
 <script> var firebaseConfig = {
@@ -63,7 +63,7 @@ var perf = firebase.performance();
     var notSupported = isEdge || isIE;
 
     if (notSupported) {
-        document.body.innerHTML += '<div style="width:100%;height:100%;text-align:center">' +
+        document.body.innerHTML += '<div style="width:100%;height:100%;text-align:center; color:#ffffff">' +
             '<p>This Browser is not Supported yet.</p>' +
             '<p>Try Firefox, Safari or any Chromium based Browser like Chrome instead.</p>' +
             '<p>Sorry for the inconvenience</p>' +
