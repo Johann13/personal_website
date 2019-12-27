@@ -56,7 +56,7 @@ class _TileModel {
     final animation = tween.transform(progress);
     final x = animation['x'];
     double y = (0.025 * math.cos(2 * math.pi * (x - p)) + 0.975);
-    double alpha = (-0.2 * math.cos(2 * math.pi * (x - p)) + 0.8);
+    double alpha = (-0.4 * math.cos(2 * math.pi * (x - p)) + 0.6);
     Paint paint = Paint();
     paint.color = this.color.withOpacity(alpha);
 
