@@ -47,20 +47,6 @@ class SiteNavigation extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(
-            left: padding,
-            right: padding,
-          ),
-          child: MousePointer(
-            child: FlatButton(
-              child: Text('About'),
-              onPressed: () {
-                Navigator.pushNamed(context, '/about');
-              },
-            ),
-          ),
-        ),
-        Padding(
           padding: EdgeInsets.only(left: padding),
           child: MousePointer(
             child: FlatButton(

@@ -1,8 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_util/screen_size/screen_size.dart';
 import 'package:personal_website/extensions/media_query_data_ext.dart';
 import 'package:personal_website/main/navigation.dart';
-import 'package:personal_website/pages/coming_soon.dart';
+import 'package:personal_website/other/footer.dart';
 
 class MainContainer extends StatelessWidget {
   final String title;
@@ -16,10 +17,6 @@ class MainContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: ComingSoon(),
-    );
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: ResponsiveWidget(
@@ -79,11 +76,19 @@ class _Mobile extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        height: MediaQuery.of(context).height * .85,
+                        width: MediaQuery.of(context).width * .9,
+                        child: Card(
+                          child: Text(
+                            'Johann Feser',
+                            style: Theme.of(context).textTheme.headline,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      Container(
                         width: MediaQuery.of(context).width * .9,
                         child: Card(
                           child: Container(
-                            height: MediaQuery.of(context).height * .85,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: child,
@@ -98,7 +103,7 @@ class _Mobile extends StatelessWidget {
                       Container(
                         width: MediaQuery.of(context).width * .9,
                         height: MediaQuery.of(context).height * .1,
-                        color: Colors.orange,
+                        child: Footer(),
                       ),
                     ],
                   ),
@@ -143,8 +148,21 @@ class _SiteContainer extends StatelessWidget {
             width: width,
             height: MediaQuery.of(context).height * .1,
             child: Card(
-              child: SiteNavigation(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Text(
+                      'Johann Feser',
+                      style: Theme.of(context).textTheme.headline,
+                    ),
+                  ),
+                  SiteNavigation(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                  ),
+                ],
               ),
             ),
           ),
@@ -156,15 +174,18 @@ class _SiteContainer extends StatelessWidget {
                     width: MediaQuery.of(context).width,
                     child: Column(
                       children: <Widget>[
-                        Container(
-                          height: MediaQuery.of(context).height * .85,
-                          width: width,
-                          child: Card(
-                            child: Container(
-                              height: MediaQuery.of(context).height * .85,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: child,
+                        ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: MediaQuery.of(context).height * .8,
+                          ),
+                          child: Container(
+                            width: width,
+                            child: Card(
+                              child: Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: child,
+                                ),
                               ),
                             ),
                           ),
@@ -172,7 +193,7 @@ class _SiteContainer extends StatelessWidget {
                         Container(
                           height: MediaQuery.of(context).height * .1,
                           width: width,
-                          color: Colors.orange,
+                          child: Footer(),
                         ),
                       ],
                     ),

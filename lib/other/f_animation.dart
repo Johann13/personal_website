@@ -38,7 +38,7 @@ class _TileModel {
     );
 
     tween = MultiTrackTween([
-      Track("size")
+      Track("x")
           .add(duration, Tween(begin: 0, end: 1), curve: Curves.linear),
     ]);
     animationProgress = AnimationProgress(duration: duration, startTime: time);
@@ -54,7 +54,7 @@ class _TileModel {
     double s = size.width / 7;
     var progress = animationProgress.progress(time);
     final animation = tween.transform(progress);
-    final x = animation['size'];
+    final x = animation['x'];
     double y = (0.025 * math.cos(2 * math.pi * (x - p)) + 0.975);
     double alpha = (-0.2 * math.cos(2 * math.pi * (x - p)) + 0.8);
     Paint paint = Paint();
@@ -81,8 +81,9 @@ class _FPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    /*
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height),
-        Paint()..color = Colors.white);
+        Paint()..color = Colors.white);*/
     _tiles.forEach((particle) {
       particle.draw(canvas, time, size);
     });
