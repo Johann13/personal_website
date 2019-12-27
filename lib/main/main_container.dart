@@ -77,6 +77,7 @@ class _Mobile extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         width: MediaQuery.of(context).width * .9,
+                        height: MediaQuery.of(context).height * 0.05,
                         child: Card(
                           child: Text(
                             'Johann Feser',
@@ -85,20 +86,22 @@ class _Mobile extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        width: MediaQuery.of(context).width * .9,
-                        child: Card(
-                          child: Container(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: child,
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: MediaQuery.of(context).height * .85,
+                        ),
+                        child: Container(
+                          width: MediaQuery.of(context).width * .9,
+                          child: Card(
+                            child: Container(
+                              child: AnimatedPadding(
+                                duration: Duration(seconds: 1),
+                                padding: const EdgeInsets.all(8.0),
+                                child: child,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).width * .9,
-                        height: MediaQuery.of(context).height * .1,
                       ),
                       Container(
                         width: MediaQuery.of(context).width * .9,
@@ -182,7 +185,8 @@ class _SiteContainer extends StatelessWidget {
                             width: width,
                             child: Card(
                               child: Container(
-                                child: Padding(
+                                child: AnimatedPadding(
+                                  duration: Duration(seconds: 1),
                                   padding: const EdgeInsets.all(8.0),
                                   child: child,
                                 ),
