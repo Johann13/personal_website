@@ -21,10 +21,10 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  easy_localization: ^1.3.1
   simple_animations: ^1.3.4
   url_launcher: ^5.4.1
   url_launcher_web: ^0.1.0
+  shared_preferences_web: ^0.1.0
   flutter_web_util:
     git:
       url: git://github.com/Johann13/flutter_web_util.git
@@ -48,8 +48,8 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   assets:
-    - assets/lang/en-EN.json
-    - assets/lang/de-DE.json
+    - assets/lang/en.json
+    - assets/lang/de.json
     - assets/img/favicon/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
