@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations/animation_progress.dart';
 import 'package:simple_animations/simple_animations/multi_track_tween.dart';
@@ -30,14 +31,15 @@ class ParticleModel {
   Color color;
   Offset startPosition;
   Offset endPosition;
-  final bool canDrawText;
+  bool canDrawText;
 
-  ParticleModel(this.random, this.text, this.color,{this.canDrawText = true}) {
+  ParticleModel(this.random, this.text, this.color) {
     restart();
   }
 
   restart({Duration time = Duration.zero}) {
     int i = random.nextInt(4);
+    canDrawText = random.nextBool();
     double y = -0.2 + 1.4 * random.nextDouble();
     double x = 0.025 + 0.1 * random.nextDouble();
     switch (i) {
@@ -83,13 +85,13 @@ class ParticleModel {
   }
 
   void drawText(Canvas canvas, Duration time, Size size) {
-    if(!canDrawText){
+    if (!canDrawText) {
       return;
     }
     var progress = animationProgress.progress(time);
     final animation = tween.transform(progress);
     final x = animation['opacity'];
-    double opacity = -(3*(x*x))+3*x;
+    double opacity = -(3 * (x * x)) + 3 * x;
     final Offset position =
         Offset(animation["x"] * size.width, animation["y"] * size.height);
     final textStyle = ui.TextStyle(
@@ -109,13 +111,13 @@ class ParticleModel {
   }
 
   void drawLine(Canvas canvas, Duration time, Size size) {
-    if(canDrawText){
+    if (canDrawText) {
       return;
     }
     var progress = animationProgress.progress(time);
     final animation = tween.transform(progress);
     final x = animation['opacity'];
-    double opacity = -(3*(x*x))+3*x;
+    double opacity = -(3 * (x * x)) + 3 * x;
     Paint paint = Paint()..color = this.color.withOpacity(opacity);
     paint.strokeWidth = 2.0;
     canvas.drawLine(startPosition, endPosition, paint);
@@ -134,7 +136,7 @@ class ParticleModel {
         paint);
   }
 
-  void draw(Canvas canvas, Duration time, Size size){
+  void draw(Canvas canvas, Duration time, Size size) {
     drawText(canvas, time, size);
     drawLine(canvas, time, size);
   }
@@ -148,7 +150,8 @@ class ParticlePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), Paint()..color = Colors.grey[850]);
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height),
+        Paint()..color = Colors.grey[850]);
     particles.forEach((particle) {
       particle.draw(canvas, time, size);
     });
@@ -159,7 +162,6 @@ class ParticlePainter extends CustomPainter {
 }
 
 class Particles extends StatefulWidget {
-
   @override
   _ParticlesState createState() => _ParticlesState();
 }
@@ -169,10 +171,9 @@ class _ParticlesState extends State<Particles> {
 
   List<ParticleModel> particles = [];
 
-
   @override
   void initState() {
-    particles.addAll( [
+    particles.addAll([
       ParticleModel(random, 'Flutter', Color(0xFF30B9F6)),
       ParticleModel(random, 'Firebase', Color(0xFFFFCB2B)),
       ParticleModel(random, 'Dart', Color(0xFF2CB7F6)),
@@ -183,19 +184,6 @@ class _ParticlesState extends State<Particles> {
       ParticleModel(random, 'Angular', Color(0xFFDD0031)),
       ParticleModel(random, 'Android', Color(0xFF3CDA83)),
     ]);
-    List<ParticleModel> _list = [
-      ParticleModel(random, 'Flutter', Color(0xFF30B9F6),canDrawText: false),
-      ParticleModel(random, 'Firebase', Color(0xFFFFCB2B),canDrawText: false),
-      ParticleModel(random, 'Dart', Color(0xFF2CB7F6),canDrawText: false),
-      ParticleModel(random, 'Python', Color(0xff336D9C),canDrawText: false),
-      ParticleModel(random, 'Typescript', Color(0xFF284D7E),canDrawText: false),
-      ParticleModel(random, 'Javascript', Color(0xFFF9D01C),canDrawText: false),
-      ParticleModel(random, 'Java', Color(0xFFF58219),canDrawText: false),
-      ParticleModel(random, 'Angular', Color(0xFFDD0031),canDrawText: false),
-      ParticleModel(random, 'Android', Color(0xFF3CDA83),canDrawText: false),
-    ];
-    particles.addAll(_list);
-    particles.addAll(_list);
     particles.shuffle();
     super.initState();
   }
