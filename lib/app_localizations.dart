@@ -4,6 +4,7 @@ import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppLocalizations {
   final Locale locale;
@@ -54,8 +55,13 @@ class _AppLocalizationsDelegate
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
-    // AppLocalizations class is where the JSON loading actually runs
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     AppLocalizations localizations = new AppLocalizations(locale);
+    String languageCode = AppLocalizations.languageCode;
+    String saved = preferences.getString('languageCode');
+    if (saved == null) {
+      await preferences.setString('languageCode', languageCode);
+    }
     await localizations.load();
     return localizations;
   }
