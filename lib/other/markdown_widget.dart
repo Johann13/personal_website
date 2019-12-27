@@ -1,16 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_web_util/flutter_web_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final _urlRegExp = RegExp(r'\[(\w| )+\]\(https:\/\/((\w+).)+(\w+)\)');
+final _urlText = RegExp(r'\[(\w|\s|\\|\/)+\]');
 
 class Markdown extends StatelessWidget {
   final List<Widget> _widgets;
 
   Markdown._(this._widgets);
 
-  factory Markdown(String data, {double fontSize}) {
+  factory Markdown(
+    String data, {
+    TextStyle textStyle = const TextStyle(
+      fontSize: 18,
+    ),
+    TextStyle linkStyle,
+  }) {
     Widget _parse(String s) {
       //return Text(s);
       return Padding(
@@ -18,45 +25,33 @@ class Markdown extends StatelessWidget {
         child: Builder(
           builder: (context) {
             if (s.contains('http')) {
-              String u = s
-                  .replaceAll(RegExp(r'\[(\w| )+\]'), '')
-                  .replaceAll(RegExp(r'\(|\)'), '');
+              String u =
+                  s.replaceAll(_urlText, '').replaceAll(RegExp(r'\(|\)'), '');
               if (u.endsWith('.')) {
                 u = u.substring(0, u.length - 1);
               }
               String t = s
-                  .replaceAll(RegExp(r'\(https:\/\/((\w+).)+(\w+)\)'), '')
+                  .replaceAll(RegExp(r'\(http(s?):\/\/((\w+).)+(\w+)\)'), '')
                   .replaceAll(RegExp(r'\[|\]'), '')
                   .replaceAll('_', ' ');
-              return HoverBoolWidget(
-                builder: (BuildContext context, bool value) {
-                  return GestureDetector(
-                    child: Text(
-                      '$t',
-                      style: TextStyle(
-                          color: Colors.blue[value ? 300 : 500],
-                          decoration: TextDecoration.underline,
-                          fontSize: fontSize),
-                    ),
-                    onTap: () {
-                      launch(u);
-                    },
-                  );
-                },
-              );
+              return LinkWidget(
+                  text: t,
+                  url: u,
+                  linkStyle: linkStyle ??
+                      textStyle.copyWith(
+                        decoration: TextDecoration.underline,
+                      ));
             }
             return Text(
               s,
-              style: TextStyle(
-                fontSize: fontSize,
-              ),
+              style: textStyle,
             );
           },
         ),
       );
     }
 
-    String d = data.replaceAllMapped(_urlRegExp, (Match m) {
+    String d = data.replaceAllMapped(_urlText, (Match m) {
       return m[0].replaceAll(' ', '_');
     });
     List<String> lines = d.split(RegExp(r' '));
@@ -71,8 +66,42 @@ class Markdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
+      runSpacing: 1.5,
       spacing: 3.5,
       children: _widgets,
+    );
+  }
+}
+
+class LinkWidget extends StatelessWidget {
+  final String text;
+  final String url;
+  final TextStyle linkStyle;
+
+  const LinkWidget({
+    Key key,
+    @required this.text,
+    @required this.url,
+    @required this.linkStyle,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return HoverBoolWidget(
+      builder: (BuildContext context, bool value) {
+        return GestureDetector(
+          child: Text(
+            text,
+            style: (linkStyle ?? TextStyle()).copyWith(
+              decoration: TextDecoration.underline,
+              color: value ? Colors.green[300] : null,
+            ),
+          ),
+          onTap: () {
+            launch(url);
+          },
+        );
+      },
     );
   }
 }
