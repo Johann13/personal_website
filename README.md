@@ -1,4 +1,4 @@
-# my Personal Website
+# My Website
 
 Simple Site to showcase me and the things I make.
 
