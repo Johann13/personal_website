@@ -1,8 +1,11 @@
+import 'dart:async';
+import 'dart:html' as html;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_async_builder/builder/simple_future_builder.dart';
+import 'package:flutter_web_util/flutter_web_util.dart';
 import 'package:personal_website/app_localizations.dart';
-import 'dart:html' as html;
-
 import 'package:personal_website/other/markdown_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,22 +16,230 @@ class HomePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('${AppLocalizations.of(context).translations['about']['1']}')
-            ],
+          child: Padding(
+            padding: const EdgeInsets.only(right: 1.0),
+            child: _RespText(),
           ),
         ),
-        Container(
-          width: 200,
-          height: 200,
-          child: Placeholder(),
+        ResponsiveWidget(
+          desktop: (_) {
+            return Container(
+              width: 200,
+              child: _Image(),
+            );
+          },
+          mobile: (_) {
+            return Container(
+              width: 150,
+              child: _Image(),
+            );
+          },
         ),
       ],
     );
   }
 
   String get lang => html.window.navigator.language;
+}
+
+class _RespText extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ResponsiveWidget(
+      desktop: (_) => _Text(),
+      mobile: (_) => _Text(
+        fontSize: 16,
+        space: 8,
+      ),
+    );
+  }
+}
+
+class _Text extends StatelessWidget {
+  final double fontSize;
+  final double space;
+
+  const _Text({Key key, this.fontSize = 18, this.space = 10}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Markdown(
+          '${AppLocalizations.of(context).translations['about']['1']}',
+          textStyle: TextStyle(
+            fontSize: fontSize,
+          ),
+        ),
+        Markdown(
+          '${AppLocalizations.of(context).translations['about']['2']}',
+          textStyle: TextStyle(
+            fontSize: fontSize,
+          ),
+        ),
+        Container(
+          height: space,
+        ),
+        Markdown(
+          '${AppLocalizations.of(context).translations['about']['3']}',
+          textStyle: TextStyle(
+            fontSize: fontSize,
+          ),
+        ),
+        Markdown(
+          '${AppLocalizations.of(context).translations['about']['4']}',
+          textStyle: TextStyle(
+            fontSize: fontSize,
+          ),
+        ),
+        Container(
+          height: space,
+        ),
+        Markdown(
+          '${AppLocalizations.of(context).translations['about']['5']}',
+          textStyle: TextStyle(
+            fontSize: fontSize,
+          ),
+        ),
+        Divider(
+          height: space * 2,
+        ),
+        Markdown(
+          '${AppLocalizations.of(context).translations['oi']}',
+          textStyle: TextStyle(
+            fontSize: fontSize,
+          ),
+        ),
+        Container(
+          height: space,
+        ),
+        _MoreReading(
+          fontSize: fontSize,
+        )
+      ],
+    );
+  }
+}
+
+class _RespImage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ResponsiveWidget(
+      desktop: (_) {
+        return Container(
+          width: 200,
+          child: _Image(),
+        );
+      },
+      mobile: (_) {
+        return Container(
+          width: 100,
+          child: _Image(),
+        );
+      },
+    );
+  }
+}
+
+class _Image extends StatefulWidget {
+  @override
+  __ImageState createState() => __ImageState();
+}
+
+class __ImageState extends State<_Image> with TickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> animation;
+  AssetImage _img;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 1000), vsync: this);
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
+    init();
+  }
+
+  init() async {
+    _img = await _load('assets/img/4x6.jpg');
+    controller.forward();
+  }
+
+  Future<AssetImage> _load(String path) async {
+    Completer<ui.Image> completer = Completer<ui.Image>();
+    AssetImage provider = AssetImage(path);
+    provider.resolve(ImageConfiguration()).addListener(
+        ImageStreamListener((info, _) => completer.complete(info.image)));
+    await completer.future;
+    return provider;
+  }
+
+  Widget build(BuildContext context) {
+    if (_img == null) {
+      return Container(
+        child: AspectRatio(
+          aspectRatio: 4 / 6,
+        ),
+      );
+    }
+    return FadeTransition(
+      opacity: animation,
+      child: Container(
+        child: AspectRatio(
+          aspectRatio: 4 / 6,
+          child: ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            child: Image(
+              image: _img,
+            ),
+          ),
+        ),
+      ),
+    );
+    return Container(
+      child: SimpleFutureBuilder(
+        future: _load('assets/img/4x6.jpg'),
+        builder: (context, img) {},
+      ),
+    );
+  }
+}
+
+class _MoreReading extends StatelessWidget {
+  final double fontSize;
+
+  const _MoreReading({Key key, this.fontSize = 18}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          AppLocalizations.of(context).translations['oi_more'],
+          style: TextStyle(
+            fontSize: fontSize,
+          ),
+        ),
+        LinkWidget(
+          text: 'Schweizerische Vereinigung Osteogenesis Imperfecta (Deutsch)',
+          url: 'https://www.glasknochen.ch/krankheitsbild/',
+          linkStyle: TextStyle(
+            fontSize: fontSize,
+          ),
+        ),
+        LinkWidget(
+          text: 'US National Health Service (English)',
+          url:
+              'https://www.bones.nih.gov/health-info/bone/osteogenesis-imperfecta/overview',
+          linkStyle: TextStyle(
+            fontSize: fontSize,
+          ),
+        ),
+      ],
+    );
+  }
 }
