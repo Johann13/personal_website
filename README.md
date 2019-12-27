@@ -1,6 +1,6 @@
-# personal_website
+# my Personal Website
 
-A new Flutter project.
+Simple Site to showcase me and the things I make.
 
 ## Getting Started
 
