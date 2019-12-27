@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_util/flutter_web_util.dart';
@@ -24,8 +23,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
       supportedLocales: [
-        Locale('en', 'EN'),
-        Locale('de', 'DE'),
+        const Locale('en', 'EN'),
+        const Locale('de', 'DE'),
       ],
       localizationsDelegates: [
         AppLocalizations.delegate,
@@ -36,7 +35,8 @@ class MyApp extends StatelessWidget {
         // Check if the current device locale is supported
         String languageCode = AppLocalizations.languageCode;
         for (var supportedLocale in supportedLocales) {
-          if ('${supportedLocale.languageCode}-${supportedLocale.countryCode}' == languageCode) {
+          if ('${supportedLocale.languageCode}-${supportedLocale.countryCode}' ==
+              languageCode) {
             return supportedLocale;
           }
         }
