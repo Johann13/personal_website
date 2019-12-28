@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_util/hover/hover_widget.dart';
+import 'package:personal_website/app_localizations.dart';
 import 'package:personal_website/other/language_provider.dart';
+import 'package:screen_size_util/screen_size_util.dart';
 
 class SiteNavigation extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
@@ -22,7 +24,7 @@ class SiteNavigation extends StatelessWidget {
       crossAxisAlignment: crossAxisAlignment,
       children: <Widget>[
         NavButton(
-          text: 'Home',
+          text: AppLocalizations.of(context).translations['menu']['home'],
           onPressed: () {
             Navigator.pushNamed(context, '/');
           },
@@ -31,7 +33,7 @@ class SiteNavigation extends StatelessWidget {
           ),
         ),
         NavButton(
-          text: 'Projects',
+          text: AppLocalizations.of(context).translations['menu']['projects'],
           onPressed: () {
             Navigator.pushNamed(context, '/projects');
           },
@@ -41,7 +43,7 @@ class SiteNavigation extends StatelessWidget {
           ),
         ),
         NavButton(
-          text: 'Contact',
+          text: AppLocalizations.of(context).translations['menu']['contact'],
           onPressed: () {
             Navigator.pushNamed(context, '/contact');
           },
@@ -111,15 +113,23 @@ class CollapsedMenu extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Container(height: 50,width: 50,),
+          Container(
+            height: 50,
+            width: 50,
+          ),
           FlatButton(
-            child: Text('Menu'),
+            child: Text(AppLocalizations.of(context).translations['menu']['menu']),
             onPressed: () {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return _BottomSheetMenu();
+                  });
+              /*
               Scaffold.of(context).showBottomSheet(
                 (context) {
-                  return _BottomSheetMenu();
                 },
-              );
+              );*/
             },
           ),
           Container(
@@ -150,95 +160,46 @@ class _BottomSheetMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 5, left: 15, right: 15),
+      width: MediaQuery.of(context).width * 0.8,
       height: 160,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            NavButton(
-              text: 'Home',
-              onPressed: () {
-                Navigator.pushNamed(context, '/');
-              },
-              padding: EdgeInsets.only(
-                right: padding,
-              ),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          NavButton(
+            text: AppLocalizations.of(context).translations['menu']['home'],
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/');
+            },
+            padding: EdgeInsets.only(
+              right: padding,
             ),
-            NavButton(
-              text: 'Projects',
-              onPressed: () {
-                Navigator.pushNamed(context, '/projects');
-              },
-              padding: EdgeInsets.only(
-                left: padding,
-                right: padding,
-              ),
+          ),
+          NavButton(
+            text: AppLocalizations.of(context).translations['menu']['projects'],
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/projects');
+            },
+            padding: EdgeInsets.only(
+              left: padding,
+              right: padding,
             ),
-            NavButton(
-              text: 'Contact',
-              onPressed: () {
-                Navigator.pushNamed(context, '/contact');
-              },
-              padding: EdgeInsets.only(
-                left: padding,
-                right: padding,
-              ),
+          ),
+          NavButton(
+            text: AppLocalizations.of(context).translations['menu']['contact'],
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/contact');
+            },
+            padding: EdgeInsets.only(
+              left: padding,
+              right: padding,
             ),
-          ],
-        ),
-      ),
-    );
-    return Container(
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            NavButton(
-              text: 'Home',
-              onPressed: () {
-                Navigator.pushNamed(context, '/');
-              },
-              padding: EdgeInsets.only(
-                right: padding,
-              ),
-            ),
-            NavButton(
-              text: 'Projects',
-              onPressed: () {
-                Navigator.pushNamed(context, '/projects');
-              },
-              padding: EdgeInsets.only(
-                left: padding,
-                right: padding,
-              ),
-            ),
-            NavButton(
-              text: 'Contact',
-              onPressed: () {
-                Navigator.pushNamed(context, '/contact');
-              },
-              padding: EdgeInsets.only(
-                left: padding,
-                right: padding,
-              ),
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: EdgeInsets.only(left: padding),
-                child: Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 16,
-                  ),
-                  child: LanguageSwitch(),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
