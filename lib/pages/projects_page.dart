@@ -29,6 +29,13 @@ class _Content extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
+        Text(
+          AppLocalizations.of(context).translations['menu']['projects'],
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         Markdown(
           AppLocalizations.of(context).translations['projects']['desc'],
           textStyle: TextStyle(fontSize: fontSize),
