@@ -8,7 +8,13 @@
   },
   "oi": "In case you are interested, I have something called Osteogenesis imperfecta (OI) or colloquial brittle bone syndrome. The symptoms of OI include as the name would suggest, weak bones that can be deformed and break easily and a short stature.",
   "oi_more": "If you want to read more about that here are some links for further reading.",
-  "contact": "If you want to contact me send me an",
+  "contact": "If you want to contact me send me an [Email](mailto:johannfeser@gmail.com]",
+  "menu": {
+    "menu": "Menu",
+    "home": "Home",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
   "projects": {
     "desc": "Most of my work can be found on [Github](https://github.com/johann13). Not all of my repos are public but I'm in the process of making some of them public. Here is a list of some of my public work.",
     "list": [
@@ -22,13 +28,18 @@
       },
       {
         "title": "Flutter Web Util",
-        "desc": "Widgets that help building responsive Flutter websites and other Flutter for Web specific widgets.",
+        "desc": "Flutter for Web specific widgets.",
         "link": "https://github.com/Johann13/flutter_web_util"
       },
       {
         "title": "Flutter Async Builder",
         "desc": "Convenience widgets for [Future](https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html) and [Stream](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) Builder",
         "link": "https://github.com/Johann13/flutter_async_builder"
+      },
+      {
+        "title": "Screen Size Util",
+        "desc": "Flutter widget for responsive layouts and extensions to [MediaQueryData](https://api.flutter.dev/flutter/widgets/MediaQueryData-class.html).",
+        "link": "https://github.com/Johann13/screen_size_util"
       },
       {
         "title": "This Site",
