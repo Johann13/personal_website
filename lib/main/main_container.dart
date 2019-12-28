@@ -100,7 +100,6 @@ class _Desktop extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          height: MediaQuery.of(context).height * 0.1,
                           width: MediaQuery.of(context).width * (2 / 3),
                           child: Footer(),
                         ),
