@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -29,10 +29,12 @@ dependencies:
   flutter_web_util:
     git:
       url: git://github.com/Johann13/flutter_web_util.git
-
   flutter_async_builder:
     git:
       url: git://github.com/Johann13/flutter_async_builder.git
+  screen_size_util:
+    git:
+      url: git://github.com/Johann13/screen_size_util.git
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

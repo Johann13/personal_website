@@ -15,12 +15,12 @@ class _BackgroundAnimationState extends State<BackgroundAnimation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Particles(),
+      child: _Animation(),
     );
   }
 }
 
-class ParticleModel {
+class _Model {
   final String text;
   Animatable tween;
   double size;
@@ -31,15 +31,15 @@ class ParticleModel {
   Color color;
   Offset startPosition;
   Offset endPosition;
-  bool canDrawText;
+  bool shouldDrawText;
 
-  ParticleModel(this.random, this.text, this.color) {
+  _Model(this.random, this.text, this.color) {
     restart();
   }
 
   restart({Duration time = Duration.zero}) {
     int i = random.nextInt(4);
-    canDrawText = random.nextBool();
+    shouldDrawText = false;//random.nextBool();
     double y = -0.2 + 1.4 * random.nextDouble();
     double x = 0.025 + 0.1 * random.nextDouble();
     switch (i) {
@@ -62,7 +62,7 @@ class ParticleModel {
     }
 
     final duration = Duration(
-      milliseconds: 8000 + random.nextInt(4000),
+      milliseconds: 6000 + random.nextInt(6000),
     );
 
     tween = MultiTrackTween([
@@ -85,7 +85,7 @@ class ParticleModel {
   }
 
   void drawText(Canvas canvas, Duration time, Size size) {
-    if (!canDrawText) {
+    if (!shouldDrawText) {
       return;
     }
     var progress = animationProgress.progress(time);
@@ -111,7 +111,7 @@ class ParticleModel {
   }
 
   void drawLine(Canvas canvas, Duration time, Size size) {
-    if (canDrawText) {
+    if (shouldDrawText) {
       return;
     }
     var progress = animationProgress.progress(time);
@@ -142,11 +142,11 @@ class ParticleModel {
   }
 }
 
-class ParticlePainter extends CustomPainter {
-  List<ParticleModel> particles;
+class _Painter extends CustomPainter {
+  List<_Model> particles;
   Duration time;
 
-  ParticlePainter(this.particles, this.time);
+  _Painter(this.particles, this.time);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -161,28 +161,28 @@ class ParticlePainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
-class Particles extends StatefulWidget {
+class _Animation extends StatefulWidget {
   @override
-  _ParticlesState createState() => _ParticlesState();
+  _AnimationState createState() => _AnimationState();
 }
 
-class _ParticlesState extends State<Particles> {
+class _AnimationState extends State<_Animation> {
   final Random random = Random();
 
-  List<ParticleModel> particles = [];
+  List<_Model> particles = [];
 
   @override
   void initState() {
     particles.addAll([
-      ParticleModel(random, 'Flutter', Color(0xFF30B9F6)),
-      ParticleModel(random, 'Firebase', Color(0xFFFFCB2B)),
-      ParticleModel(random, 'Dart', Color(0xFF2CB7F6)),
-      ParticleModel(random, 'Python', Color(0xff336D9C)),
-      ParticleModel(random, 'Typescript', Color(0xFF284D7E)),
-      ParticleModel(random, 'Javascript', Color(0xFFF9D01C)),
-      ParticleModel(random, 'Java', Color(0xFFF58219)),
-      ParticleModel(random, 'Angular', Color(0xFFDD0031)),
-      ParticleModel(random, 'Android', Color(0xFF3CDA83)),
+      _Model(random, 'Flutter', Color(0xFF30B9F6)),
+      _Model(random, 'Firebase', Color(0xFFFFCB2B)),
+      _Model(random, 'Dart', Color(0xFF2CB7F6)),
+      _Model(random, 'Python', Color(0xff336D9C)),
+      _Model(random, 'Typescript', Color(0xFF284D7E)),
+      _Model(random, 'Javascript', Color(0xFFF9D01C)),
+      _Model(random, 'Java', Color(0xFFF58219)),
+      _Model(random, 'Angular', Color(0xFFDD0031)),
+      _Model(random, 'Android', Color(0xFF3CDA83)),
     ]);
     particles.shuffle();
     super.initState();
@@ -192,16 +192,16 @@ class _ParticlesState extends State<Particles> {
   Widget build(BuildContext context) {
     return Rendering(
       startTime: Duration(seconds: 30),
-      onTick: _simulateParticles,
+      onTick: _reset,
       builder: (context, time) {
         return CustomPaint(
-          painter: ParticlePainter(particles, time),
+          painter: _Painter(particles, time),
         );
       },
     );
   }
 
-  _simulateParticles(Duration time) {
+  _reset(Duration time) {
     particles.forEach((particle) => particle.maintainRestart(time));
   }
 }

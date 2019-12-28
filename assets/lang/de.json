@@ -14,7 +14,7 @@
     "list": [
       {
         "title": "YcApp - Unoffical Yogscast App",
-        "desc": "An Flutter app designed to be an App for everything [Yogscast](http://yogscast.com). It shows all relevant infos about them like channel, social media links and schedules. It can also send notifications whenever a new Youtube video is uploaded or twitch stream goes live. And in case of the [Main Channel](https:twitch.tv/yogscast) it sends them 10 minutes before a stream is supposed to start. There are three companion sites all also built using Flutter, [yogs.app](), [schedule.yogs.app](https://schedule.yogs.app) and [jj.yogs.app](https://jj.yogs.app). The Code is not publicly available although i'm considering open sourcing parts of it."
+        "desc": "An Flutter app designed to be an App for everything [Yogscast](http://yogscast.com). It shows all relevant infos about them like channel, social media links and schedules. It can also send notifications whenever a new Youtube video is uploaded or twitch stream goes live. And in case of the [Main Channel](https://twitch.tv/yogscast) it sends them 10 minutes before a stream is supposed to start. There are three companion sites all also built using Flutter, [yogs.app](https://yogs.app), [schedule.yogs.app](https://schedule.yogs.app) and [jj.yogs.app](https://jj.yogs.app). The Code is not publicly available although i'm considering open sourcing parts of it."
       },
       {
         "title": "Car2P - Flutter App",
@@ -27,7 +27,7 @@
       },
       {
         "title": "Flutter Async Builder",
-        "desc": "Convenience Widgets [Future](https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html) and [Stream](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) Builder",
+        "desc": "Convenience widgets for [Future](https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html) and [Stream](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) Builder",
         "link": "https://github.com/Johann13/flutter_async_builder"
       },
       {

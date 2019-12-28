@@ -4,112 +4,116 @@ import 'package:flutter_web_util/flutter_web_util.dart';
 import 'package:personal_website/app_localizations.dart';
 import 'package:personal_website/other/background_animation.dart';
 import 'package:personal_website/other/f_animation.dart';
+import 'package:personal_website/other/image_provider.dart';
 import 'package:personal_website/other/language_provider.dart';
-import 'package:personal_website/pages/about_page.dart';
 import 'package:personal_website/pages/contact_page.dart';
 import 'package:personal_website/pages/home_page.dart';
 import 'package:personal_website/pages/projects_page.dart';
+import 'package:screen_size_util/screen_size_util.dart';
+
 import 'main/main_container.dart';
-import 'package:personal_website/extensions/media_query_data_ext.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LanguageProvider(
+    return WebsiteImageProvider(
       builder: (context) {
-        return Builder(builder: (context) {
-          return MaterialApp(
-            title: 'Johann Feser',
-            debugShowCheckedModeBanner: false,
-            debugShowMaterialGrid: false,
-            supportedLocales: [
-              const Locale('en', 'EN'),
-              const Locale('de', 'DE'),
-            ],
-            localizationsDelegates: [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            locale: LanguageProvider.locale(context),
-            theme: ThemeData(
-              brightness: Brightness.dark,
-              primaryColor: Colors.green,
-              accentColor: Colors.greenAccent
-            ),
-            initialRoute: '/',
-            onUnknownRoute: (route) {
-              return SimpleWebRoute(
-                settings: route,
-                builder: (context) {
-                  return _Nav(
-                    initialRoute: '/',
+        return LanguageProvider(
+          builder: (context) {
+            return Builder(builder: (context) {
+              return MaterialApp(
+                title: 'Johann Feser',
+                debugShowCheckedModeBanner: false,
+                debugShowMaterialGrid: false,
+                supportedLocales: [
+                  const Locale('en', 'EN'),
+                  const Locale('de', 'DE'),
+                ],
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                locale: LanguageProvider.locale(context),
+                theme: ThemeData(
+                    brightness: Brightness.dark,
+                    primaryColor: Colors.green,
+                    accentColor: Colors.greenAccent),
+                initialRoute: '/',
+                onUnknownRoute: (route) {
+                  return SimpleWebRoute(
+                    settings: route,
+                    builder: (context) {
+                      return _Nav(
+                        initialRoute: '/',
+                      );
+                    },
+                    title: 'Johann Feser',
                   );
                 },
-                title: 'Johann Feser',
-              );
-            },
-            onGenerateRoute: (route) {
-              String name = route.name.split('/')[1];
-              switch (name) {
-                case 'projects':
+                onGenerateRoute: (route) {
+                  String name = route.name.split('/')[1];
+                  switch (name) {
+                    case 'projects':
+                      return SimpleWebRoute(
+                        settings: route,
+                        builder: (context) {
+                          return _Nav(
+                            initialRoute: '/project',
+                          );
+                        },
+                        title: 'Johann Feser',
+                      );
+                      break;
+                    case 'about':
+                      return SimpleWebRoute(
+                        settings: route,
+                        builder: (context) {
+                          return _Nav(
+                            initialRoute: '/about',
+                          );
+                        },
+                        title: 'Johann Feser',
+                      );
+                      break;
+                    case 'contact':
+                      return SimpleWebRoute(
+                        settings: route,
+                        builder: (context) {
+                          return _Nav(
+                            initialRoute: '/contact',
+                          );
+                        },
+                        title: 'Johann Feser',
+                      );
+                    case 'f':
+                      return SimpleWebRoute(
+                        settings: route,
+                        builder: (context) {
+                          return _Nav(
+                            initialRoute: '/f',
+                          );
+                        },
+                        title: 'f',
+                      );
+                      break;
+                  }
                   return SimpleWebRoute(
                     settings: route,
                     builder: (context) {
                       return _Nav(
-                        initialRoute: '/project',
+                        initialRoute: '/',
                       );
                     },
-                    title: 'Projects',
-                  );
-                  break;
-                case 'about':
-                  return SimpleWebRoute(
-                    settings: route,
-                    builder: (context) {
-                      return _Nav(
-                        initialRoute: '/about',
-                      );
-                    },
-                    title: 'About',
-                  );
-                  break;
-                case 'contact':
-                  return SimpleWebRoute(
-                    settings: route,
-                    builder: (context) {
-                      return _Nav(
-                        initialRoute: '/contact',
-                      );
-                    },
-                    title: 'Contact',
-                  );
-                case 'f':
-                  return SimpleWebRoute(
-                    settings: route,
-                    builder: (context) {
-                      return _Nav(
-                        initialRoute: '/f',
-                      );
-                    },
-                    title: 'f',
-                  );
-                  break;
-              }
-              return SimpleWebRoute(
-                settings: route,
-                builder: (context) {
-                  return _Nav(
-                    initialRoute: '/',
+                    title: 'Johann Feser',
                   );
                 },
-                title: 'Johann Feser',
               );
-            },
-          );
-        });
+            });
+          },
+        );
       },
     );
   }
@@ -154,19 +158,7 @@ class _Nav extends StatelessWidget {
                         child: ProjectsPage(),
                       );
                     },
-                    title: 'Projects',
-                  );
-                  break;
-                case 'about':
-                  return SimpleWebRoute(
-                    settings: route,
-                    builder: (context) {
-                      return MainContainer(
-                        title: 'About',
-                        child: AboutPage(),
-                      );
-                    },
-                    title: 'About',
+                    title: 'Johann Feser',
                   );
                   break;
                 case 'contact':
@@ -178,7 +170,7 @@ class _Nav extends StatelessWidget {
                         child: ContactPage(),
                       );
                     },
-                    title: 'Contact',
+                    title: 'Johann Feser',
                   );
                 case 'f':
                   return SimpleWebRoute(

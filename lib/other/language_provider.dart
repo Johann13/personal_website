@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_async_builder/builder/simple_future_builder.dart';
 import 'package:flutter_web_util/hover/hover_widget.dart';
+import 'package:personal_website/other/image_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageProvider extends StatefulWidget {
@@ -87,45 +88,10 @@ class _LanguageInheritedWidget extends InheritedWidget {
   bool updateShouldNotify(_LanguageInheritedWidget old) => true;
 }
 
-class LanguageSwitch extends StatefulWidget {
-
-
-  @override
-  _LanguageSwitchState createState() => _LanguageSwitchState();
-}
-
-class _LanguageSwitchState extends State<LanguageSwitch> {
-
-  AssetImage _de, _gb;
-
-
-  @override
-  void initState(){
-    super.initState();
-    init();
-  }
-
-  void init()async{
-    _de = await _load('assets/img/de.png');
-    _gb = await _load('assets/img/gb.png');
-  }
-
-  Future<AssetImage> _load(String path) async {
-    Completer<ui.Image> completer = Completer<ui.Image>();
-    AssetImage provider = AssetImage(path);
-    provider.resolve(ImageConfiguration()).addListener(
-        ImageStreamListener((info, _) => completer.complete(info.image)));
-    await completer.future;
-    return provider;
-  }
-
-
+class LanguageSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(_de==null||_gb==null){
-      return Container();
-    }
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -135,9 +101,9 @@ class _LanguageSwitchState extends State<LanguageSwitch> {
             child: Builder(
               builder: (context) {
                 if (LanguageProvider.lang(context) == 'de-DE') {
-                  return Image(image: _de,);
+                  return Image(image: WebsiteImageProvider.of(context).de,);
                 }
-                return Image(image: _gb,);
+                return Image(image: WebsiteImageProvider.of(context).gb,);
               },
             ),
           ),

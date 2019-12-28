@@ -7,5 +7,34 @@
     "5": "My part-time Job is working for the department of [Theoretical Computer Science / Complex Systems](http://www.uni-kassel.de/eecs/fachgebiete/tiks/about.html) as a Tutor in the Introduction to Computer Science course."
   },
   "oi": "In case you are interested, I have something called Osteogenesis imperfecta (OI) or colloquial brittle bone syndrome. The symptoms of OI include as the name would suggest, weak bones that can be deformed and break easily and a short stature.",
-  "oi_more": "If you want to read more about that here are some links for further reading."
+  "oi_more": "If you want to read more about that here are some links for further reading.",
+  "contact": "If you want to contact me send me an",
+  "projects": {
+    "desc": "Most of my work can be found on [Github](https://github.com/johann13). Not all of my repos are public but I'm in the process of making some of them public. Here is a list of some of my public work.",
+    "list": [
+      {
+        "title": "YcApp - Unoffical Yogscast App",
+        "desc": "An Flutter app designed to be an App for everything [Yogscast](http://yogscast.com). It shows all relevant infos about them like channel, social media links and schedules. It can also send notifications whenever a new Youtube video is uploaded or twitch stream goes live. And in case of the [Main Channel](https://twitch.tv/yogscast) it sends them 10 minutes before a stream is supposed to start. There are three companion sites all also built using Flutter, [yogs.app](https://yogs.app), [schedule.yogs.app](https://schedule.yogs.app) and [jj.yogs.app](https://jj.yogs.app). The Code is not publicly available although i'm considering open sourcing parts of it."
+      },
+      {
+        "title": "Car2P - Flutter App",
+        "desc": "This was a Uni Project I worked on for about 6 Months. A Flutter App + Backend that can track users position and detect possible collisions. The Goal of this project was not only developing this app and the needed backend but also to evaluate if this project is a good usecase for Flutter. The Code is not publicly available."
+      },
+      {
+        "title": "Flutter Web Util",
+        "desc": "Widgets that help building responsive Flutter websites and other Flutter for Web specific widgets.",
+        "link": "https://github.com/Johann13/flutter_web_util"
+      },
+      {
+        "title": "Flutter Async Builder",
+        "desc": "Convenience widgets for [Future](https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html) and [Stream](https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html) Builder",
+        "link": "https://github.com/Johann13/flutter_async_builder"
+      },
+      {
+        "title": "This Site",
+        "desc": "Just a portfolio site.",
+        "link": "https://github.com/Johann13/personal_website"
+      }
+    ]
+  }
 }

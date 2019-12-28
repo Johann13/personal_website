@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_async_builder/builder/simple_future_builder.dart';
 import 'package:flutter_web_util/flutter_web_util.dart';
 import 'package:personal_website/app_localizations.dart';
+import 'package:personal_website/other/image_provider.dart';
 import 'package:personal_website/other/markdown_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -151,7 +152,6 @@ class _Image extends StatefulWidget {
 class __ImageState extends State<_Image> with TickerProviderStateMixin {
   AnimationController controller;
   Animation<double> animation;
-  AssetImage _img;
 
   @override
   void initState() {
@@ -159,31 +159,11 @@ class __ImageState extends State<_Image> with TickerProviderStateMixin {
     controller = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
-    init();
-  }
-
-  init() async {
-    _img = await _load('assets/img/4x6.jpg');
     controller.forward();
   }
 
-  Future<AssetImage> _load(String path) async {
-    Completer<ui.Image> completer = Completer<ui.Image>();
-    AssetImage provider = AssetImage(path);
-    provider.resolve(ImageConfiguration()).addListener(
-        ImageStreamListener((info, _) => completer.complete(info.image)));
-    await completer.future;
-    return provider;
-  }
-
+  @override
   Widget build(BuildContext context) {
-    if (_img == null) {
-      return Container(
-        child: AspectRatio(
-          aspectRatio: 4 / 6,
-        ),
-      );
-    }
     return FadeTransition(
       opacity: animation,
       child: Container(
@@ -192,16 +172,10 @@ class __ImageState extends State<_Image> with TickerProviderStateMixin {
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             child: Image(
-              image: _img,
+              image: WebsiteImageProvider.of(context).profile,
             ),
           ),
         ),
-      ),
-    );
-    return Container(
-      child: SimpleFutureBuilder(
-        future: _load('assets/img/4x6.jpg'),
-        builder: (context, img) {},
       ),
     );
   }

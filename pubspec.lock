@@ -98,7 +98,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9f0255ce1be4692689d23c7152bc88087e5b8457"
+      resolved-ref: e9d5f38c1e4b3851f2afad572089a89c10d8cdb6
       url: "git://github.com/Johann13/flutter_web_util.git"
     source: git
     version: "0.0.1"
@@ -165,6 +165,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
+  screen_size_util:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "6c2a6883aa0b54b772fd85913f60767488b3f40d"
+      url: "git://github.com/Johann13/screen_size_util.git"
+    source: git
+    version: "0.0.1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -297,5 +306,5 @@ packages:
     source: hosted
     version: "3.5.0"
 sdks:
-  dart: ">=2.4.0 <3.0.0"
+  dart: ">=2.6.0 <3.0.0"
   flutter: ">=1.12.13+hotfix.4 <2.0.0"
