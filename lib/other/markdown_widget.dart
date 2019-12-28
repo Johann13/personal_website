@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_web_util/flutter_web_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final _urlText = RegExp(r'\[(\w|\s|\\|\/)+\]');
+final _urlText = RegExp(r'\[(\w|\s|\\|\/|\.)+\]');
 
 class Markdown extends StatelessWidget {
   final List<Widget> _widgets;
@@ -24,23 +24,27 @@ class Markdown extends StatelessWidget {
         padding: const EdgeInsets.only(left: 0, right: 0),
         child: Builder(
           builder: (context) {
-            if (s.contains('http')) {
+            if (s.contains('http') || s.contains('mailto')) {
               String u =
                   s.replaceAll(_urlText, '').replaceAll(RegExp(r'\(|\)'), '');
               if (u.endsWith('.')) {
                 u = u.substring(0, u.length - 1);
               }
               String t = s
-                  .replaceAll(RegExp(r'\(http(s?):\/\/((\w+).)+(\w+)\)'), '')
+                  .replaceAll(
+                      RegExp(
+                          r'\(((http(s?):\/\/)|(mailto:))(((\w|\@)+).)+(\w+)\)'),
+                      '')
                   .replaceAll(RegExp(r'\[|\]'), '')
                   .replaceAll('_', ' ');
               return LinkWidget(
-                  text: t,
-                  url: u,
-                  linkStyle: linkStyle ??
-                      textStyle.copyWith(
-                        decoration: TextDecoration.underline,
-                      ));
+                text: t,
+                url: u,
+                linkStyle: linkStyle ??
+                    textStyle.copyWith(
+                      decoration: TextDecoration.underline,
+                    ),
+              );
             }
             return Text(
               s,
@@ -98,7 +102,7 @@ class LinkWidget extends StatelessWidget {
             ),
           ),
           onTap: () {
-            launch(url);
+            launch(url.replaceAll(',', '').trim());
           },
         );
       },
