@@ -69,24 +69,24 @@ class HomePage extends StatelessWidget {
                         aboutLine: 2,
                         fontSize: 16,
                       ),
+                      Container(
+                        height: 8,
+                      ),
+                      _Line(
+                        aboutLine: 3,
+                        fontSize: 16,
+                      ),
+                      _Line(
+                        aboutLine: 4,
+                        fontSize: 16,
+                      ),
                     ],
                   ),
                 ),
                 _Image(
-                  width: 100,
+                  width: 150,
                 ),
               ],
-            ),
-            Container(
-              height: 8,
-            ),
-            _Line(
-              aboutLine: 3,
-              fontSize: 16,
-            ),
-            _Line(
-              aboutLine: 4,
-              fontSize: 16,
             ),
             Container(
               height: 8,
@@ -138,6 +138,10 @@ class HomePage extends StatelessWidget {
                         aboutLine: 1,
                         fontSize: 16,
                       ),
+                      _Line(
+                        aboutLine: 2,
+                        fontSize: 16,
+                      ),
                     ],
                   ),
                 ),
@@ -145,10 +149,6 @@ class HomePage extends StatelessWidget {
                   width: 100,
                 ),
               ],
-            ),
-            _Line(
-              aboutLine: 2,
-              fontSize: 16,
             ),
             Container(
               height: 8,
