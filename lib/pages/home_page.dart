@@ -1,42 +1,191 @@
-import 'dart:async';
 import 'dart:html' as html;
-import 'dart:ui' as ui;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_async_builder/builder/simple_future_builder.dart';
-import 'package:flutter_web_util/flutter_web_util.dart';
 import 'package:personal_website/app_localizations.dart';
 import 'package:personal_website/other/image_provider.dart';
 import 'package:personal_website/other/markdown_widget.dart';
+import 'package:screen_size_util/screen_size_util.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(right: 1.0),
-            child: _RespText(),
-          ),
-        ),
-        ResponsiveWidget(
-          desktop: (_) {
-            return Container(
-              width: 200,
-              child: _Image(),
-            );
-          },
-          mobile: (_) {
-            return Container(
-              width: 150,
-              child: _Image(),
-            );
-          },
-        ),
-      ],
+    return ResponsiveBuilder(
+      medium: (_) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              AppLocalizations.of(context).translations['menu']['home'],
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 1.0),
+                    child: _Text(),
+                  ),
+                ),
+                _Image(),
+              ],
+            ),
+          ],
+        );
+      },
+
+      small: (_) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              AppLocalizations.of(context).translations['menu']['home'],
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _Line(
+                        aboutLine: 1,
+                        fontSize: 16,
+                      ),
+                      _Line(
+                        aboutLine: 2,
+                        fontSize: 16,
+                      ),
+                    ],
+                  ),
+                ),
+                _Image(
+                  width: 100,
+                ),
+              ],
+            ),
+            Container(
+              height: 8,
+            ),
+            _Line(
+              aboutLine: 3,
+              fontSize: 16,
+            ),
+            _Line(
+              aboutLine: 4,
+              fontSize: 16,
+            ),
+            Container(
+              height: 8,
+            ),
+            _Line(
+              aboutLine: 5,
+              fontSize: 16,
+            ),
+            Divider(
+              height: 16,
+            ),
+            Markdown(
+              '${AppLocalizations.of(context).translations['oi']}',
+              textStyle: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            Container(
+              height: 8,
+            ),
+            _MoreReading(
+              fontSize: 16,
+            ),
+          ],
+        );
+      },
+      extraSmall: (_) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              AppLocalizations.of(context).translations['menu']['home'],
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _Line(
+                        aboutLine: 1,
+                        fontSize: 16,
+                      ),
+                    ],
+                  ),
+                ),
+                _Image(
+                  width: 100,
+                ),
+              ],
+            ),
+            _Line(
+              aboutLine: 2,
+              fontSize: 16,
+            ),
+            Container(
+              height: 8,
+            ),
+            _Line(
+              aboutLine: 3,
+              fontSize: 16,
+            ),
+            _Line(
+              aboutLine: 4,
+              fontSize: 16,
+            ),
+            Container(
+              height: 8,
+            ),
+            _Line(
+              aboutLine: 5,
+              fontSize: 16,
+            ),
+            Divider(
+              height: 16,
+            ),
+            Markdown(
+              '${AppLocalizations.of(context).translations['oi']}',
+              textStyle: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            Container(
+              height: 8,
+            ),
+            _MoreReading(
+              fontSize: 16,
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -46,9 +195,9 @@ class HomePage extends StatelessWidget {
 class _RespText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(
-      desktop: (_) => _Text(),
-      mobile: (_) => _Text(
+    return ResponsiveBuilder(
+      large: (_) => _Text(),
+      extraSmall: (_) => _Text(
         fontSize: 16,
         space: 8,
       ),
@@ -68,41 +217,31 @@ class _Text extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Markdown(
-          '${AppLocalizations.of(context).translations['about']['1']}',
-          textStyle: TextStyle(
-            fontSize: fontSize,
-          ),
+        _Line(
+          aboutLine: 1,
+          fontSize: fontSize,
         ),
-        Markdown(
-          '${AppLocalizations.of(context).translations['about']['2']}',
-          textStyle: TextStyle(
-            fontSize: fontSize,
-          ),
+        _Line(
+          aboutLine: 2,
+          fontSize: fontSize,
         ),
         Container(
           height: space,
         ),
-        Markdown(
-          '${AppLocalizations.of(context).translations['about']['3']}',
-          textStyle: TextStyle(
-            fontSize: fontSize,
-          ),
+        _Line(
+          aboutLine: 3,
+          fontSize: fontSize,
         ),
-        Markdown(
-          '${AppLocalizations.of(context).translations['about']['4']}',
-          textStyle: TextStyle(
-            fontSize: fontSize,
-          ),
+        _Line(
+          aboutLine: 4,
+          fontSize: fontSize,
         ),
         Container(
           height: space,
         ),
-        Markdown(
-          '${AppLocalizations.of(context).translations['about']['5']}',
-          textStyle: TextStyle(
-            fontSize: fontSize,
-          ),
+        _Line(
+          aboutLine: 5,
+          fontSize: fontSize,
         ),
         Divider(
           height: space * 2,
@@ -124,27 +263,35 @@ class _Text extends StatelessWidget {
   }
 }
 
-class _RespImage extends StatelessWidget {
+class _Line extends StatelessWidget {
+  final int aboutLine;
+  final double fontSize;
+
+  const _Line({
+    Key key,
+    this.aboutLine = 1,
+    this.fontSize = 18,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(
-      desktop: (_) {
-        return Container(
-          width: 200,
-          child: _Image(),
-        );
-      },
-      mobile: (_) {
-        return Container(
-          width: 100,
-          child: _Image(),
-        );
-      },
+    return Markdown(
+      '${AppLocalizations.of(context).translations['about']['$aboutLine']}',
+      textStyle: TextStyle(
+        fontSize: fontSize,
+      ),
     );
   }
 }
 
 class _Image extends StatefulWidget {
+  final double width;
+
+  const _Image({
+    Key key,
+    this.width = 200,
+  }) : super(key: key);
+
   @override
   __ImageState createState() => __ImageState();
 }
@@ -164,15 +311,18 @@ class __ImageState extends State<_Image> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animation,
-      child: Container(
-        child: AspectRatio(
-          aspectRatio: 4 / 6,
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            child: Image(
-              image: WebsiteImageProvider.of(context).profile,
+    return Container(
+      width: widget.width,
+      child: FadeTransition(
+        opacity: animation,
+        child: Container(
+          child: AspectRatio(
+            aspectRatio: 4 / 6,
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              child: Image(
+                image: WebsiteImageProvider.of(context).profile,
+              ),
             ),
           ),
         ),
