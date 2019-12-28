@@ -1,9 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_web_util/flutter_web_util.dart';
 import 'package:personal_website/app_localizations.dart';
 import 'package:personal_website/other/markdown_widget.dart';
-import 'package:personal_website/pages/coming_soon.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectsPage extends StatelessWidget {
@@ -61,6 +61,7 @@ class _ProjectList extends StatelessWidget {
     List maps = AppLocalizations.of(context).translations['projects']['list'];
     List<_Project> projects = maps.map((map) => _Project.fromMap(map)).toList();
     return ListView.builder(
+      padding: EdgeInsets.all(0.0),
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
       itemBuilder: (context, index) {
@@ -87,14 +88,14 @@ class _ProjectTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 16.0, bottom: 16.0, left: 0.0, right: 0.0),
+      padding: EdgeInsets.symmetric(vertical: 12.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           if (!project.hasLink)
             Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Text(
                 project.title,
                 style: Theme.of(context).textTheme.subtitle.copyWith(
@@ -104,7 +105,7 @@ class _ProjectTile extends StatelessWidget {
             ),
           if (project.hasLink)
             Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: HoverColorWidget(
                 value: Colors.white,
                 hoverValue: Colors.green[300],
@@ -126,7 +127,7 @@ class _ProjectTile extends StatelessWidget {
               ),
             ),
           Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
             child: Markdown(
               project.desc,
               textStyle: TextStyle(
