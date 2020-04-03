@@ -6,16 +6,14 @@ import 'package:simple_animations/simple_animations/animation_progress.dart';
 import 'package:simple_animations/simple_animations/multi_track_tween.dart';
 import 'package:simple_animations/simple_animations/rendering.dart';
 
-class BackgroundAnimation extends StatefulWidget {
-  @override
-  _BackgroundAnimationState createState() => _BackgroundAnimationState();
-}
+class BackgroundAnimation extends StatelessWidget {
+  final Widget child;
 
-class _BackgroundAnimationState extends State<BackgroundAnimation> {
+  const BackgroundAnimation({Key key, this.child}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: _Animation(),
+    return _Animation(
+      child: child,
     );
   }
 }
@@ -39,7 +37,7 @@ class _Model {
 
   restart({Duration time = Duration.zero}) {
     int i = random.nextInt(4);
-    shouldDrawText = false;//random.nextBool();
+    shouldDrawText = false; //random.nextBool();
     double y = -0.2 + 1.4 * random.nextDouble();
     double x = 0.025 + 0.1 * random.nextDouble();
     switch (i) {
@@ -162,6 +160,10 @@ class _Painter extends CustomPainter {
 }
 
 class _Animation extends StatefulWidget {
+  final Widget child;
+
+  const _Animation({Key key, this.child}) : super(key: key);
+
   @override
   _AnimationState createState() => _AnimationState();
 }
@@ -196,6 +198,7 @@ class _AnimationState extends State<_Animation> {
       builder: (context, time) {
         return CustomPaint(
           painter: _Painter(particles, time),
+          child: widget.child,
         );
       },
     );

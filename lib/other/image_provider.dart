@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class WebsiteImageProvider extends StatefulWidget {
@@ -39,10 +40,10 @@ class _WebsiteImageProviderState extends State<WebsiteImageProvider> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _init();
+    //_init();
   }
 
-  void _init() async {
+  Future<bool> _init() async {
     if (_de == null) {
       _de = await _load('assets/img/de.png');
     }
@@ -52,11 +53,13 @@ class _WebsiteImageProviderState extends State<WebsiteImageProvider> {
     if (_profile == null) {
       _profile = await _load('assets/img/4x6.jpg');
     }
+    /*
     if (mounted) {
       setState(() {
         _loaded = true;
       });
-    }
+    }*/
+    return true;
   }
 
   Future<AssetImage> _load(String path) async {
@@ -70,12 +73,30 @@ class _WebsiteImageProviderState extends State<WebsiteImageProvider> {
 
   @override
   Widget build(BuildContext context) {
-    if (!_loaded) {
-      return Container();
-    }
-    return _ImageInheritedWidget(
-      child: widget.builder(context),
-      state: this,
+    return FutureBuilder<bool>(
+      initialData: false,
+      future: _init(),
+      builder: (context, snap) {
+        return AnimatedSwitcher(
+          duration: Duration(seconds: 1),
+          switchInCurve: Curves.easeInOut,
+          switchOutCurve: Curves.easeInOut,
+          child: snap.hasError
+              ? Container(
+                  child: Center(
+                    child: Text('${snap.error}'),
+                  ),
+                )
+              : snap.hasData
+                  ? !snap.data
+                      ? _Loading()
+                      : _ImageInheritedWidget(
+                          child: widget.builder(context),
+                          state: this,
+                        )
+                  : _Loading(),
+        );
+      },
     );
   }
 }
@@ -93,5 +114,18 @@ class _ImageInheritedWidget extends InheritedWidget {
   @override
   bool updateShouldNotify(_ImageInheritedWidget old) {
     return true;
+  }
+}
+
+class _Loading extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation(Colors.green[300]),
+        ),
+      ),
+    );
   }
 }

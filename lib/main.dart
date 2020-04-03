@@ -18,103 +18,105 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return WebsiteImageProvider(
-      builder: (context) {
-        return LanguageProvider(
-          builder: (context) {
-            return Builder(builder: (context) {
-              return MaterialApp(
-                title: 'Johann Feser',
-                debugShowCheckedModeBanner: false,
-                debugShowMaterialGrid: false,
-                supportedLocales: [
-                  const Locale('en', 'EN'),
-                  const Locale('de', 'DE'),
-                ],
-                localizationsDelegates: [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                locale: LanguageProvider.locale(context),
-                theme: ThemeData(
-                    brightness: Brightness.dark,
-                    primaryColor: Colors.green,
-                    accentColor: Colors.greenAccent),
-                initialRoute: '/',
-                onUnknownRoute: (route) {
-                  return SimpleWebRoute(
-                    settings: route,
-                    builder: (context) {
-                      return _Nav(
-                        initialRoute: '/',
-                      );
-                    },
-                    title: 'Johann Feser',
-                  );
-                },
-                onGenerateRoute: (route) {
-                  String name = route.name.split('/')[1];
-                  switch (name) {
-                    case 'projects':
-                      return SimpleWebRoute(
-                        settings: route,
-                        builder: (context) {
-                          return _Nav(
-                            initialRoute: '/project',
-                          );
-                        },
-                        title: 'Johann Feser',
-                      );
-                      break;
-                    case 'about':
-                      return SimpleWebRoute(
-                        settings: route,
-                        builder: (context) {
-                          return _Nav(
-                            initialRoute: '/about',
-                          );
-                        },
-                        title: 'Johann Feser',
-                      );
-                      break;
-                    case 'contact':
-                      return SimpleWebRoute(
-                        settings: route,
-                        builder: (context) {
-                          return _Nav(
-                            initialRoute: '/contact',
-                          );
-                        },
-                        title: 'Johann Feser',
-                      );
-                    case 'f':
-                      return SimpleWebRoute(
-                        settings: route,
-                        builder: (context) {
-                          return _Nav(
-                            initialRoute: '/f',
-                          );
-                        },
-                        title: 'f',
-                      );
-                      break;
-                  }
-                  return SimpleWebRoute(
-                    settings: route,
-                    builder: (context) {
-                      return _Nav(
-                        initialRoute: '/',
-                      );
-                    },
-                    title: 'Johann Feser',
-                  );
-                },
-              );
-            });
-          },
-        );
-      },
+    return BackgroundAnimation(
+      child: WebsiteImageProvider(
+        builder: (context) {
+          return LanguageProvider(
+            builder: (context) {
+              return Builder(builder: (context) {
+                return MaterialApp(
+                  title: 'Johann Feser',
+                  debugShowCheckedModeBanner: false,
+                  debugShowMaterialGrid: false,
+                  supportedLocales: [
+                    const Locale('en', 'EN'),
+                    const Locale('de', 'DE'),
+                  ],
+                  localizationsDelegates: [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  locale: LanguageProvider.locale(context),
+                  theme: ThemeData(
+                      brightness: Brightness.dark,
+                      primaryColor: Colors.green,
+                      accentColor: Colors.greenAccent),
+                  initialRoute: '/',
+                  onUnknownRoute: (route) {
+                    return SimpleWebRoute(
+                      settings: route,
+                      builder: (context) {
+                        return _Nav(
+                          initialRoute: '/',
+                        );
+                      },
+                      title: 'Johann Feser',
+                    );
+                  },
+                  onGenerateRoute: (route) {
+                    String name = route.name.split('/')[1];
+                    switch (name) {
+                      case 'projects':
+                        return SimpleWebRoute(
+                          settings: route,
+                          builder: (context) {
+                            return _Nav(
+                              initialRoute: '/project',
+                            );
+                          },
+                          title: 'Johann Feser',
+                        );
+                        break;
+                      case 'about':
+                        return SimpleWebRoute(
+                          settings: route,
+                          builder: (context) {
+                            return _Nav(
+                              initialRoute: '/about',
+                            );
+                          },
+                          title: 'Johann Feser',
+                        );
+                        break;
+                      case 'contact':
+                        return SimpleWebRoute(
+                          settings: route,
+                          builder: (context) {
+                            return _Nav(
+                              initialRoute: '/contact',
+                            );
+                          },
+                          title: 'Johann Feser',
+                        );
+                      case 'f':
+                        return SimpleWebRoute(
+                          settings: route,
+                          builder: (context) {
+                            return _Nav(
+                              initialRoute: '/f',
+                            );
+                          },
+                          title: 'f',
+                        );
+                        break;
+                    }
+                    return SimpleWebRoute(
+                      settings: route,
+                      builder: (context) {
+                        return _Nav(
+                          initialRoute: '/',
+                        );
+                      },
+                      title: 'Johann Feser',
+                    );
+                  },
+                );
+              });
+            },
+          );
+        },
+      ),
     );
   }
 }
@@ -128,9 +130,10 @@ class _Nav extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        /*
         Positioned.fill(
           child: BackgroundAnimation(),
-        ),
+        ),*/
         Positioned.fill(
           child: Navigator(
             initialRoute: initialRoute,
