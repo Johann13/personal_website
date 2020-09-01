@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'dart:html' as html;
-import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_async_builder/builder/simple_future_builder.dart';
-import 'package:flutter_web_util/hover/hover_widget.dart';
 import 'package:personal_website/other/image_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ycapp_dart_util/ui/hover_widget.dart';
 
 class LanguageProvider extends StatefulWidget {
   final WidgetBuilder builder;
@@ -35,9 +34,9 @@ class LanguageProvider extends StatefulWidget {
   }
 
   static void setLang(BuildContext context, String lang) async {
+    _of(context).state.language = lang;
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString('languageCode', lang);
-    _of(context).state.language = lang;
   }
 }
 

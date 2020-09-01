@@ -4,7 +4,10 @@ import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:personal_website/lang/default_lang.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'lang/de.dart';
 
 class AppLocalizations {
   final Locale locale;
@@ -26,10 +29,11 @@ class AppLocalizations {
 
   Future<bool> load() async {
     // Load the language JSON file from the "lang" folder
-    String jsonString =
-        await rootBundle.loadString('assets/lang/${locale.languageCode}.json');
-    _localizedStrings = json.decode(jsonString);
-
+    if(locale.languageCode=='de'){
+      _localizedStrings = de;
+    }else{
+      _localizedStrings = defaultLang;
+    }
     return true;
   }
 

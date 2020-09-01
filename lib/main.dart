@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_web_util/flutter_web_util.dart';
 import 'package:personal_website/app_localizations.dart';
 import 'package:personal_website/main/main_container.dart';
 import 'package:personal_website/other/background_animation.dart';
@@ -11,6 +10,7 @@ import 'package:personal_website/pages/contact_page.dart';
 import 'package:personal_website/pages/home_page.dart';
 import 'package:personal_website/pages/projects_page.dart';
 import 'package:screen_size_util/screen_size_util.dart';
+import 'package:ycapp_dart_util/ui/web_routes.dart';
 
 
 void main() => runApp(MyApp());

@@ -10,6 +10,7 @@ import 'package:screen_size_util/screen_size_util.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    List<String> lines = AppLocalizations.of(context).translations['about'];
     return ResponsiveBuilder(
       medium: (_) {
         return Column(
@@ -39,7 +40,6 @@ class HomePage extends StatelessWidget {
           ],
         );
       },
-
       small: (_) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,23 +62,23 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       _Line(
-                        aboutLine: 1,
                         fontSize: 16,
+                        line: lines[0],
                       ),
                       _Line(
-                        aboutLine: 2,
                         fontSize: 16,
+                        line:lines[1],
                       ),
                       Container(
                         height: 8,
                       ),
                       _Line(
-                        aboutLine: 3,
                         fontSize: 16,
+                        line:lines[2],
                       ),
                       _Line(
-                        aboutLine: 4,
                         fontSize: 16,
+                        line:lines[3],
                       ),
                     ],
                   ),
@@ -92,8 +92,8 @@ class HomePage extends StatelessWidget {
               height: 8,
             ),
             _Line(
-              aboutLine: 5,
               fontSize: 16,
+              line:lines[4],
             ),
             Divider(
               height: 16,
@@ -135,12 +135,12 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       _Line(
-                        aboutLine: 1,
                         fontSize: 16,
+                        line:lines[0],
                       ),
                       _Line(
-                        aboutLine: 2,
                         fontSize: 16,
+                        line:lines[1],
                       ),
                     ],
                   ),
@@ -154,19 +154,19 @@ class HomePage extends StatelessWidget {
               height: 8,
             ),
             _Line(
-              aboutLine: 3,
               fontSize: 16,
+              line:lines[2],
             ),
             _Line(
-              aboutLine: 4,
               fontSize: 16,
+              line:lines[3],
             ),
             Container(
               height: 8,
             ),
             _Line(
-              aboutLine: 5,
               fontSize: 16,
+              line:lines[4],
             ),
             Divider(
               height: 16,
@@ -213,36 +213,16 @@ class _Text extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> lines = AppLocalizations.of(context).translations['about'];
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _Line(
-          aboutLine: 1,
-          fontSize: fontSize,
-        ),
-        _Line(
-          aboutLine: 2,
-          fontSize: fontSize,
-        ),
-        Container(
-          height: space,
-        ),
-        _Line(
-          aboutLine: 3,
-          fontSize: fontSize,
-        ),
-        _Line(
-          aboutLine: 4,
-          fontSize: fontSize,
-        ),
-        Container(
-          height: space,
-        ),
-        _Line(
-          aboutLine: 5,
-          fontSize: fontSize,
-        ),
+        for (String line in lines)
+          _Line(
+            fontSize: fontSize,
+            line: line,
+          ),
         Divider(
           height: space * 2,
         ),
@@ -264,19 +244,19 @@ class _Text extends StatelessWidget {
 }
 
 class _Line extends StatelessWidget {
-  final int aboutLine;
   final double fontSize;
+  final String line;
 
   const _Line({
     Key key,
-    this.aboutLine = 1,
     this.fontSize = 18,
+    @required this.line,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Markdown(
-      '${AppLocalizations.of(context).translations['about']['$aboutLine']}',
+      line,
       textStyle: TextStyle(
         fontSize: fontSize,
       ),
@@ -297,33 +277,21 @@ class _Image extends StatefulWidget {
 }
 
 class __ImageState extends State<_Image> with TickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> animation;
-
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
-    controller.forward();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: widget.width,
-      child: FadeTransition(
-        opacity: animation,
-        child: Container(
-          child: AspectRatio(
-            aspectRatio: 4 / 6,
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              child: Image(
-                image: WebsiteImageProvider.of(context).profile,
-              ),
-            ),
+      child: AspectRatio(
+        aspectRatio: 4 / 6,
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          child: Image(
+            image: WebsiteImageProvider.of(context).profile,
           ),
         ),
       ),

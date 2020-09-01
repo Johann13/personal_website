@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_util/hover/hover_widget.dart';
 import 'package:personal_website/app_localizations.dart';
 import 'package:personal_website/other/language_provider.dart';
 import 'package:screen_size_util/screen_size_util.dart';
+import 'package:ycapp_dart_util/ui/hover_widget.dart';
 
 class SiteNavigation extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
